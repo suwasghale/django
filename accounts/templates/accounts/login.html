@@ -1,0 +1,42 @@
+{% extends 'layouts.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block jpt %}
+<title>Login</title>
+{% endblock %}
+
+{%block main-content%}
+{% include "users/header.html" %}
+<h1 class="text-center text-danger">Login Form</h1>
+<div class="container mb-3">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-5 shadow p-3 rounded-2 text-bg-info">
+        {% for msg in messages %}
+
+        {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+          <div class=" alert alert-success"> 
+              {{msg}}
+          </div>
+        {% endif %}
+
+        {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class=" alert alert-danger"> 
+           {{msg}}
+        </div>
+      {% endif %}
+
+        {%endfor%}
+        <form action="" method="post"> 
+            {% csrf_token %} 
+            {{ form|crispy }} 
+            <div class="my-2">
+                <input type="submit" value="Login" name="submit" class="btn btn-warning px-2 py-1">
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+{% include "users/footer.html" %}
+{%endblock%}

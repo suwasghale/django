@@ -1,0 +1,37 @@
+
+{% extends 'layouts.html' %}
+
+{% load static %}
+
+{% block jpt %}
+<title>Ecommerce-Products</title>
+{% endblock %}
+
+{% block main-content %}
+{% include "users/header.html" %}
+
+<!-- product section starts -->
+<div class="container">
+  <h1 class="text-center text-success mb-3">Latest Products</h1>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+    {% for item in products %}
+    <div class="col">
+      <div class="card">
+        <img src="/{{item.product_image}}" class="card-img-top" alt="{{item.product_name}}" width="300">
+        <div class="card-body">
+          <h5>{{item.category.category_name}}</h5>
+          <h3 class="card-title">{{item.product_name}}</h3>
+          <h5 class="text-danger">${{item.product_price}}</h5>
+          <a href="/productdetails/{{item.id}}" class="btn btn-success px-2 py-1">View details</a>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+  {% if products|length < 8 %}
+  {%endif%}
+</div>
+<!-- product section ends -->
+
+{% include "users/footer.html" %}
+{% endblock %}

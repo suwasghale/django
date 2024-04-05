@@ -1,0 +1,66 @@
+{% extends 'admins/layout.html' %}
+
+{%load static%}
+
+{% block jpt %}
+<title>Products</title>
+{% endblock %}
+
+{%block main-content%}
+<h1 class="text-center text-danger">All Products</h1>
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+      {% for msg in messages %}
+
+      {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <div class=" alert alert-success"> 
+            {{msg}}
+        </div>
+      {% endif %}
+
+      {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+      <div class=" alert alert-danger"> 
+         {{msg}}
+      </div>
+    {% endif %}
+
+      {%endfor%}
+      <table class="table table-bordered table-striped caption-top">
+        <caption>Latest Laptops list:</caption>
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Stock Quantity</th>
+                <th>Product Description</th>
+                <th>Image</th>
+                <th>Category </th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in products%}
+              <tr>
+                <td>{{item.product_name}}</td>
+                <td>{{item.product_price}}</td>
+                <td>{{item.stock}}</td>
+                <td>{{item.product_description}}</td>
+                <td><img src="/{{item.product_image}}" alt="{{item.product_name}}" width="100"></td>
+                {% comment %} / rakhepaxi upload ko matrai aauxa. {% endcomment %}
+                <td> {{item.category.category_name}} </td> 
+                {% comment %} .category-> le id matrai, .category_name le vitrako name. {% endcomment %}
+                <td>
+                  <a href="/products/updateproduct/{{item.id}}" class="btn btn-primary px-2 py-1 mb-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                  <a href="/products/deleteproduct/{{item.id}}" class="btn btn-danger px-2 py-1 mb-2" onClick="return confirm('Are you sure want to delete this product?')"><i class="fa-solid fa-trash"></i></a>
+                </td>
+               
+              </tr>
+              {%endfor%}
+            </tbody>
+      </table>
+      {% comment %} <img src="{%static 'images/L4.png'%}" alt="" height="250" class="rounded-3 mb-1"> {% endcomment %}
+    </div>
+  </div>
+</div>
+{%endblock%}

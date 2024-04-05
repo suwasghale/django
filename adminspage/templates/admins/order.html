@@ -1,0 +1,80 @@
+
+{% extends 'admins/layout.html' %}
+
+{% load static %}
+
+{% block jpt %}
+<title>User-Order</title>
+{% endblock %}
+
+{% block main-content %}
+
+<!-- product section starts -->
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            {% if items|length < 1 %}
+            <h2 class="text-center text-danger my-5"> No any order left.</h2>
+            {% else %}
+            <h2 class="text-center my-4">
+               Order History.
+            </h2>
+
+            {% for msg in messages %}
+
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+              <div class=" alert alert-success"> 
+                  {{msg}}
+              </div>
+            {% endif %}
+    
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class=" alert alert-danger"> 
+               {{msg}}
+            </div>
+          {% endif %}
+    
+            {%endfor%}
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th> Item Name </th>
+                        <th> Unit Price </th>
+                        <th> Quantity </th>
+                        <th> Total Price </th>
+                        <th> Product Image </th>
+                        
+                        <th> Status </th>
+                        <th> Payment Method </th>
+                        <th> Payment Status </th>
+                        <th> Action </th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in items %}
+                    <tr>
+                    <td> {{i.product.product_name}} </td>
+                    <td> {{i.product.product_price}} </td>
+                    <td> {{i.quantity}} </td>
+                    <td>Rs. {{i.total_price}} </td>
+                    <td> <img src="/{{i.product.product_image}}" alt="{{i.product.product_name}}" width="100"> </td>
+                    <td> {{i.status}} </td>
+                    <td> {{i.payment_method}} </td>
+                    <td> {{i.payment_status}} </td>
+                    <td> 
+                        <a href="#" class="btn btn-primary" > View Details </a> 
+                     </td>
+                   
+                </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+    
+</div>
+<!-- product section ends -->
+{% endblock %}

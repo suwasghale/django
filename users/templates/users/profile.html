@@ -1,0 +1,59 @@
+
+{% extends 'layouts.html' %}
+
+{% load static %}
+
+{% block jpt %}
+<title>Profile</title>
+{% endblock %}
+
+{% block main-content %}
+{% include "users/header.html" %}
+
+<!-- product section starts -->
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            {% if items|length < 1 %}
+            <h2 class="text-center text-danger my-5"> No any order left.</h2>
+            {% else %}
+            <h2 class="text-center my-4">
+              My Profile
+            </h2>
+
+            {% for msg in messages %}
+
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+              <div class=" alert alert-success"> 
+                  {{msg}}
+              </div>
+            {% endif %}
+    
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class=" alert alert-danger"> 
+               {{msg}}
+            </div>
+          {% endif %}
+    
+            {%endfor%}
+
+            <h1>FirstName: {{user.first_name}}</h1>
+            <h1>LastName: {{user.last_name}}</h1>
+            <h1>UserName: {{user.username}}</h1>
+            <h1>Email: {{user.email}}</h1>
+
+            <a href="/updateprofile" class="btn btn-warning px-4 py-2">
+                Update Profile
+            </a>
+
+         
+            <!-- {% endif %} -->
+        </div>
+    </div>
+    
+</div>
+<!-- product section ends -->
+
+{% include "users/footer.html" %}
+{% endblock %}

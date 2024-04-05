@@ -1,0 +1,39 @@
+
+{% extends 'layouts.html' %}
+
+{% load static %}
+
+{% block jpt %}
+<title>Ecommerce-Products Details</title>
+{% endblock %}
+
+{% block main-content %}
+{% include "users/header.html" %}
+
+<!-- product section starts -->
+<div class="container">
+  <h1 class="text-center text-success mb-3">Latest Products</h1>
+  <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <img src="/{{product.product_image}}" alt="{{product.product_name}}">
+        </div>
+        <div class="col-md-7">
+            <h1>{{product.product_name}}</h1>
+            <h2>$ {{product.product_price}}</h2>
+            <strong>Available stock: {{product.stock}}</strong>
+            <br>
+            <strong>Category: {{product.category}}</strong>
+            <br>
+            <p>{{product.product_description}}</p>
+            <div class="my-3">
+                <a href="/addtocart/{{product.id}}" class="btn btn-warning px-2 py-1">Add to Cart</a>
+            </div>
+        </div>
+  </div>
+  {% if products|length < 8 %}
+  {%endif%}
+</div>
+<!-- product section ends -->
+
+{% include "users/footer.html" %}
+{% endblock %}
